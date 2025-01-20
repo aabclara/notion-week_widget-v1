@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion Widget</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: transparent; /* Fundo transparente */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .widget-container {
+      background-color: transparent;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .greeting {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: start;
+      color: #F2CF04; /* Amarelo */
+    }
+
+    .days {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      text-align: center;
+      gap: 15px;
+    }
+
+    .day {
+      font-size: 14px;
+      color: #7B7B7B; /* Cinza */
+    }
+
+    .day-date {
+      font-size: 12px;
+      color: #7B7B7B; /* Cinza */
+    }
+
+    .today {
+      font-size: 18px;
+      font-weight: bold;
+      color: #F2CF04; /* Amarelo */
+    }
+
+    .today-date {
+      font-size: 14px;
+      font-weight: bold;
+      color: #0A0000; /* Preto */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="widget-container">
+    <div class="greeting" id="greeting"></div>
+    <div class="days">
+      <div class="day" id="monday">
+        <div>Monday</div>
+        <div class="day-date" id="monday-date"></div>
+      </div>
+      <div class="day" id="tuesday">
+        <div>Tuesday</div>
+        <div class="day-date" id="tuesday-date"></div>
+      </div>
+      <div class="day" id="wednesday">
+        <div>Wednesday</div>
+        <div class="day-date" id="wednesday-date"></div>
+      </div>
+      <div class="day" id="thursday">
+        <div>Thursday</div>
+        <div class="day-date" id="thursday-date"></div>
+      </div>
+      <div class="day" id="friday">
+        <div>Friday</div>
+        <div class="day-date" id="friday-date"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to set the greeting
+    function updateGreeting() {
+      const now = new Date();
+      const hour = now.getHours();
+      let greeting = "";
+
+      if (hour < 12) {
+        greeting = "Good Morning!";
+      } else if (hour < 18) {
+        greeting = "Good Afternoon!";
+      } else {
+        greeting = "Good Night!";
+      }
+
+      document.getElementById("greeting").textContent = greeting;
+    }
+
+    // Function to format and display the dates and highlight today
+    function updateDates() {
+      const now = new Date();
+      const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+      const dayOffset = (now.getDay() + 6) % 7; // Adjust Sunday to 6, Monday to 0, etc.
+
+      daysOfWeek.forEach((day, index) => {
+        let date = new Date();
+        date.setDate(now.getDate() + (index - dayOffset));
+        const dayString = `${date.toLocaleString('default', { month: 'long' })}, ${date.getDate()}`;
+
+        // Update the date under each day
+        document.getElementById(`${day}-date`).textContent = dayString;
+
+        // Highlight the current day
+        if (index === dayOffset) {
+          document.getElementById(day).classList.add("today");
+          document.getElementById(`${day}-date`).classList.add("today-date");
+        }
+      });
+    }
+
+    updateGreeting();
+    updateDates();
+  </script>
+
+</body>
+</html>
