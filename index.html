@@ -87,6 +87,14 @@
         <div>Friday</div>
         <div class="day-date" id="friday-date"></div>
       </div>
+       <div class="day" id="saturday">
+        <div>Saturday</div>
+        <div class="day-date" id="saturday-date"></div>
+      </div>
+      <div class="day" id="sunday">
+        <div>Sunday</div>
+        <div class="day-date" id="sunday-date"></div>
+      </div>
     </div>
   </div>
 
@@ -111,8 +119,8 @@
     // Function to format and display the dates and highlight today
     function updateDates() {
       const now = new Date();
-      const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday"];
-      const dayOffset = (now.getDay() + 6) % 7; // Adjust Sunday to 6, Monday to 0, etc.
+      const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday, saturday"];
+      const dayOffset = now.getDay(); // Adjust Sunday to 6, Monday to 0, etc.
 
       daysOfWeek.forEach((day, index) => {
         let date = new Date();
